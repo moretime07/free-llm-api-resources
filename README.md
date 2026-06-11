@@ -78,19 +78,19 @@ Models share a common quota.
 Data is used for training when used outside of the UK/CH/EEA/EU.
 
 <table><thead><tr><th>Model Name</th><th>Model Limits</th></tr></thead><tbody>
-<tr><td>Gemini 3.5 Flash</td><td></td></tr>
-<tr><td>Gemini 3 Flash</td><td></td></tr>
-<tr><td>Gemini 3.1 Flash-Lite</td><td></td></tr>
-<tr><td>Gemini 2.5 Flash</td><td></td></tr>
-<tr><td>Gemini 2.5 Flash-Lite</td><td></td></tr>
-<tr><td>Gemini 3.1 Flash TTS</td><td></td></tr>
-<tr><td>Gemini 2.5 Flash TTS</td><td></td></tr>
-<tr><td>Gemini Robotics-ER 1.6</td><td></td></tr>
-<tr><td>Gemini Robotics-ER 1.5</td><td></td></tr>
-<tr><td>Gemma 3 27B Instruct</td><td></td></tr>
-<tr><td>Gemma 3 12B Instruct</td><td></td></tr>
-<tr><td>Gemma 3 4B Instruct</td><td></td></tr>
-<tr><td>Gemma 3 1B Instruct</td><td></td></tr>
+<tr><td>Gemini 3.5 Flash</td><td>250,000 tokens/minute<br>20 requests/day<br>5 requests/minute</td></tr>
+<tr><td>Gemini 3 Flash</td><td>250,000 tokens/minute<br>20 requests/day<br>5 requests/minute</td></tr>
+<tr><td>Gemini 3.1 Flash-Lite</td><td>250,000 tokens/minute<br>500 requests/day<br>15 requests/minute</td></tr>
+<tr><td>Gemini 2.5 Flash</td><td>250,000 tokens/minute<br>20 requests/day<br>5 requests/minute</td></tr>
+<tr><td>Gemini 2.5 Flash-Lite</td><td>250,000 tokens/minute<br>20 requests/day<br>10 requests/minute</td></tr>
+<tr><td>Gemini 3.1 Flash TTS</td><td>10,000 tokens/minute<br>10 requests/day<br>3 requests/minute</td></tr>
+<tr><td>Gemini 2.5 Flash TTS</td><td>10,000 tokens/minute<br>10 requests/day<br>3 requests/minute</td></tr>
+<tr><td>Gemini Robotics-ER 1.6</td><td>250,000 tokens/minute<br>20 requests/day<br>5 requests/minute</td></tr>
+<tr><td>Gemini Robotics-ER 1.5</td><td>250,000 tokens/minute<br>20 requests/day<br>10 requests/minute</td></tr>
+<tr><td>Gemma 3 27B Instruct</td><td>15,000 tokens/minute<br>14,400 requests/day<br>30 requests/minute</td></tr>
+<tr><td>Gemma 3 12B Instruct</td><td>15,000 tokens/minute<br>14,400 requests/day<br>30 requests/minute</td></tr>
+<tr><td>Gemma 3 4B Instruct</td><td>15,000 tokens/minute<br>14,400 requests/day<br>30 requests/minute</td></tr>
+<tr><td>Gemma 3 1B Instruct</td><td>15,000 tokens/minute<br>14,400 requests/day<br>30 requests/minute</td></tr>
 </tbody></table>
 
 ### [NVIDIA NIM](https://build.nvidia.com/explore/discover)
