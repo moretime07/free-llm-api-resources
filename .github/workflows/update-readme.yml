@@ -11,6 +11,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -21,6 +22,13 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r src/requirements.txt
+      - id: auth
+        name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
       - name: Run script
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -28,6 +36,7 @@ jobs:
           CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
           HYPERBOLIC_API_KEY: ${{ secrets.HYPERBOLIC_API_KEY }}
           GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
           LAMBDA_API_KEY: ${{ secrets.LAMBDA_API_KEY }}
           MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
           SCALEWAY_API_KEY: ${{ secrets.SCALEWAY_API_KEY }}
