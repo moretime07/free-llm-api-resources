@@ -36,6 +36,25 @@ def create_logger(provider_name):
 MISSING_MODELS = set()
 
 
+def missing_env_vars(names):
+    return [name for name in names if not os.getenv(name)]
+
+
+def safe_fetch(provider_name, fetcher, logger, default, required_env=()):
+    missing = missing_env_vars(required_env)
+    if missing:
+        logger.warning(
+            f"Skipping {provider_name}; missing environment variables: {', '.join(missing)}"
+        )
+        return default
+
+    try:
+        return fetcher(logger)
+    except Exception as e:
+        logger.error(f"Failed to fetch {provider_name}: {e}")
+        return default
+
+
 def get_model_name(id):
     id = id.lower()
     if id in MODEL_TO_NAME_MAPPING:
@@ -432,7 +451,7 @@ def fetch_gemini_limits(logger):
     logger.info("Fetching Gemini limits...")
     client = cloudquotas_v1.CloudQuotasClient()
     request = cloudquotas_v1.ListQuotaInfosRequest(
-        parent=f"projects/{os.environ["GCP_PROJECT_ID"]}/locations/global/services/generativelanguage.googleapis.com"
+        parent=f"projects/{os.environ['GCP_PROJECT_ID']}/locations/global/services/generativelanguage.googleapis.com"
     )
     pager = client.list_quota_infos(request=request)
     models = defaultdict(dict)
@@ -658,43 +677,66 @@ def main():
     scaleway_logger = create_logger("Scaleway")
     cohere_logger = create_logger("Cohere")
 
-    fetch_concurrently = os.getenv("FETCH_CONCURRENTLY", "false").lower() == "true"
-
-    if fetch_concurrently:
-        with ThreadPoolExecutor() as executor:
-            futures = [
-                executor.submit(fetch_gemini_limits, google_ai_studio_logger),
-                executor.submit(fetch_openrouter_models, openrouter_logger),
-                executor.submit(fetch_hyperbolic_models, hyperbolic_logger),
-                executor.submit(fetch_cloudflare_models, cloudflare_logger),
-                executor.submit(fetch_github_models, github_logger),
-                executor.submit(fetch_samba_models, samba_logger),
-                executor.submit(fetch_scaleway_models, scaleway_logger),
-                executor.submit(fetch_cohere_models, cohere_logger),
-            ]
-            (
-                gemini_models,
-                openrouter_models,
-                hyperbolic_models,
-                cloudflare_models,
-                github_models,
-                samba_models,
-                scaleway_models,
-                cohere_models,
-            ) = [f.result() for f in futures]
-
-            # Fetch groq models after others complete
-            groq_models = fetch_groq_models(groq_logger)
-    else:
-        gemini_models = fetch_gemini_limits(google_ai_studio_logger)
-        openrouter_models = fetch_openrouter_models(openrouter_logger)
-        hyperbolic_models = fetch_hyperbolic_models(hyperbolic_logger)
-        cloudflare_models = fetch_cloudflare_models(cloudflare_logger)
-        github_models = fetch_github_models(github_logger)
-        samba_models = fetch_samba_models(samba_logger)
-        scaleway_models = fetch_scaleway_models(scaleway_logger)
-        cohere_models = fetch_cohere_models(cohere_logger)
-        groq_models = fetch_groq_models(groq_logger)
+    gemini_models = safe_fetch(
+        "Google AI Studio quotas",
+        fetch_gemini_limits,
+        google_ai_studio_logger,
+        {},
+        required_env=("GCP_PROJECT_ID", "GOOGLE_APPLICATION_CREDENTIALS"),
+    )
+    openrouter_models = safe_fetch(
+        "OpenRouter models",
+        fetch_openrouter_models,
+        openrouter_logger,
+        [],
+    )
+    hyperbolic_models = safe_fetch(
+        "Hyperbolic models",
+        fetch_hyperbolic_models,
+        hyperbolic_logger,
+        [],
+        required_env=("HYPERBOLIC_API_KEY",),
+    )
+    cloudflare_models = safe_fetch(
+        "Cloudflare models",
+        fetch_cloudflare_models,
+        cloudflare_logger,
+        [],
+        required_env=("CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_KEY"),
+    )
+    github_models = safe_fetch(
+        "GitHub models",
+        fetch_github_models,
+        github_logger,
+        [],
+    )
+    samba_models = safe_fetch(
+        "SambaNova models",
+        fetch_samba_models,
+        samba_logger,
+        [],
+    )
+    scaleway_models = safe_fetch(
+        "Scaleway models",
+        fetch_scaleway_models,
+        scaleway_logger,
+        [],
+        required_env=("SCALEWAY_API_KEY",),
+    )
+    cohere_models = safe_fetch(
+        "Cohere models",
+        fetch_cohere_models,
+        cohere_logger,
+        [],
+        required_env=("COHERE_API_KEY",),
+    )
+    groq_models = safe_fetch(
+        "Groq models",
+        fetch_groq_models,
+        groq_logger,
+        [],
+        required_env=("GROQ_API_KEY",),
+    )
 
     # Initialize markdown string for free providers
     model_list_markdown = ""
@@ -929,7 +971,7 @@ def main():
     if vertex_gemini_models:
         for model in vertex_gemini_models:
             limits_str = get_human_limits(model)
-            model_list_markdown += f'<tr><td><a href="https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/gemini-experimental" target="_blank">{model['name']}</a></td>'
+            model_list_markdown += f"<tr><td><a href=\"https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/gemini-experimental\" target=\"_blank\">{model['name']}</a></td>"
             if first_gemini:
                 model_list_markdown += f'<td rowspan="{len(vertex_gemini_models)}">{limits_str}<br>Shared Quota</td>'
                 first_gemini = False
@@ -939,15 +981,16 @@ def main():
     if vertex_llama_models:
         for model in vertex_llama_models:
             limits_str = get_human_limits(model)
-            model_list_markdown += f'<tr><td><a href="https://console.cloud.google.com/vertex-ai/publishers/meta/model-garden/{model['urlId']}" target="_blank">{model['name']}</a></td><td>{limits_str}<br>Free during preview</td></tr>\n'
+            model_list_markdown += f"<tr><td><a href=\"https://console.cloud.google.com/vertex-ai/publishers/meta/model-garden/{model['urlId']}\" target=\"_blank\">{model['name']}</a></td><td>{limits_str}<br>Free during preview</td></tr>\n"
 
     # Write DeepSeek models to table
     if vertex_deepseek_models:
         for model in vertex_deepseek_models:
             limits_str = get_human_limits(model)
-            model_list_markdown += f'<tr><td><a href="https://console.cloud.google.com/vertex-ai/publishers/deepseek-ai/model-garden/{model['urlId']}" target="_blank">{model['name']}</a></td><td>{limits_str}<br>Free during preview</td></tr>\n'
+            model_list_markdown += f"<tr><td><a href=\"https://console.cloud.google.com/vertex-ai/publishers/deepseek-ai/model-garden/{model['urlId']}\" target=\"_blank\">{model['name']}</a></td><td>{limits_str}<br>Free during preview</td></tr>\n"
 
-    model_list_markdown += "</tbody></table>\n\n"
+    if vertex_llama_models or vertex_gemini_models or vertex_deepseek_models:
+        model_list_markdown += "</tbody></table>\n\n"
 
     # --- Trial Providers Section Generation ---
     trial_list_markdown = ""
