@@ -50,28 +50,24 @@ This lists various services that provide free access or credits towards API-base
 
 Models share a common quota.
 
-- [Hermes 3 Llama 3.1 405B](https://openrouter.ai/nousresearch/hermes-3-llama-3.1-405b:free)
-- [Llama 3.2 3B Instruct](https://openrouter.ai/meta-llama/llama-3.2-3b-instruct:free)
-- [Llama 3.3 70B Instruct](https://openrouter.ai/meta-llama/llama-3.3-70b-instruct:free)
-- [cognitivecomputations/dolphin-mistral-24b-venice-edition:free](https://openrouter.ai/cognitivecomputations/dolphin-mistral-24b-venice-edition:free)
+- [cohere/north-mini-code:free](https://openrouter.ai/cohere/north-mini-code:free)
+- [dots-studio/dots-3-note-preview:free](https://openrouter.ai/dots-studio/dots-3-note-preview:free)
 - [google/gemma-4-26b-a4b-it:free](https://openrouter.ai/google/gemma-4-26b-a4b-it:free)
 - [google/gemma-4-31b-it:free](https://openrouter.ai/google/gemma-4-31b-it:free)
-- [liquid/lfm-2.5-1.2b-instruct:free](https://openrouter.ai/liquid/lfm-2.5-1.2b-instruct:free)
-- [liquid/lfm-2.5-1.2b-thinking:free](https://openrouter.ai/liquid/lfm-2.5-1.2b-thinking:free)
-- [nex-agi/nex-n2-pro:free](https://openrouter.ai/nex-agi/nex-n2-pro:free)
-- [nvidia/nemotron-3-nano-30b-a3b:free](https://openrouter.ai/nvidia/nemotron-3-nano-30b-a3b:free)
+- [inclusionai/ling-3.0-flash-fin:free](https://openrouter.ai/inclusionai/ling-3.0-flash-fin:free)
+- [inclusionai/ling-3.0-flash-sante:free](https://openrouter.ai/inclusionai/ling-3.0-flash-sante:free)
+- [liquid/lfm-2.5-2.6b:free](https://openrouter.ai/liquid/lfm-2.5-2.6b:free)
+- [minimax/minimax-m2.7:free](https://openrouter.ai/minimax/minimax-m2.7:free)
+- [minimax/minimax-m3:free](https://openrouter.ai/minimax/minimax-m3:free)
 - [nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free](https://openrouter.ai/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free)
 - [nvidia/nemotron-3-super-120b-a12b:free](https://openrouter.ai/nvidia/nemotron-3-super-120b-a12b:free)
 - [nvidia/nemotron-3-ultra-550b-a55b:free](https://openrouter.ai/nvidia/nemotron-3-ultra-550b-a55b:free)
 - [nvidia/nemotron-3.5-content-safety:free](https://openrouter.ai/nvidia/nemotron-3.5-content-safety:free)
-- [nvidia/nemotron-nano-12b-v2-vl:free](https://openrouter.ai/nvidia/nemotron-nano-12b-v2-vl:free)
-- [nvidia/nemotron-nano-9b-v2:free](https://openrouter.ai/nvidia/nemotron-nano-9b-v2:free)
-- [openai/gpt-oss-120b:free](https://openrouter.ai/openai/gpt-oss-120b:free)
-- [openai/gpt-oss-20b:free](https://openrouter.ai/openai/gpt-oss-20b:free)
-- [poolside/laguna-m.1:free](https://openrouter.ai/poolside/laguna-m.1:free)
-- [poolside/laguna-xs.2:free](https://openrouter.ai/poolside/laguna-xs.2:free)
-- [qwen/qwen3-coder:free](https://openrouter.ai/qwen/qwen3-coder:free)
-- [qwen/qwen3-next-80b-a3b-instruct:free](https://openrouter.ai/qwen/qwen3-next-80b-a3b-instruct:free)
+- [nvidia/nemotron-3.5-lightning:free](https://openrouter.ai/nvidia/nemotron-3.5-lightning:free)
+- [poolside/laguna-s-2.1:free](https://openrouter.ai/poolside/laguna-s-2.1:free)
+- [poolside/laguna-xs-2.1:free](https://openrouter.ai/poolside/laguna-xs-2.1:free)
+- [thinkingmachines/inkling-small:free](https://openrouter.ai/thinkingmachines/inkling-small:free)
+- [thinkingmachines/inkling:free](https://openrouter.ai/thinkingmachines/inkling:free)
 
 ### [Google AI Studio](https://aistudio.google.com)
 
@@ -157,9 +153,6 @@ Free models may use data for improvement.
 
 <table><thead><tr><th>Model Name</th><th>Model Limits</th></tr></thead><tbody>
 <tr><td>Allam 2 7B</td><td>7,000 requests/day<br>6,000 tokens/minute</td></tr>
-<tr><td>Llama 3.1 8B</td><td>14,400 requests/day<br>6,000 tokens/minute</td></tr>
-<tr><td>Llama 3.3 70B</td><td>1,000 requests/day<br>12,000 tokens/minute</td></tr>
-<tr><td>Llama 4 Scout Instruct</td><td>1,000 requests/day<br>30,000 tokens/minute</td></tr>
 <tr><td>Whisper Large v3</td><td>2,000 requests/day</td></tr>
 <tr><td>Whisper Large v3 Turbo</td><td>2,000 requests/day</td></tr>
 <tr><td>canopylabs/orpheus-arabic-saudi</td><td></td></tr>
@@ -171,7 +164,8 @@ Free models may use data for improvement.
 <tr><td>openai/gpt-oss-120b</td><td>1,000 requests/day<br>8,000 tokens/minute</td></tr>
 <tr><td>openai/gpt-oss-20b</td><td>1,000 requests/day<br>8,000 tokens/minute</td></tr>
 <tr><td>openai/gpt-oss-safeguard-20b</td><td>1,000 requests/day<br>8,000 tokens/minute</td></tr>
-<tr><td>qwen/qwen3-32b</td><td>1,000 requests/day<br>6,000 tokens/minute</td></tr>
+<tr><td>qwen/qwen3.6-27b</td><td>1,000 requests/day<br>8,000 tokens/minute</td></tr>
+<tr><td>qwen/qwen3.8-27b</td><td>1,000 requests/day<br>8,000 tokens/minute</td></tr>
 </tbody></table>
 
 ### [Cohere](https://cohere.com)
@@ -330,6 +324,7 @@ Extremely restrictive input/output token limits.
 - gpt-oss-120b
 - meta-llama-3.3-70b-instruct
 - minimax-m2.7
+- minimax-m3
 
 ### [Scaleway Generative APIs](https://console.scaleway.com/generative-api/models)
 
@@ -337,14 +332,13 @@ Extremely restrictive input/output token limits.
 
 **Models:**
 - BGE-Multilingual-Gemma2
-- Gemma 3 27B Instruct
 - Llama 3.3 70B Instruct
 - Pixtral 12B (2409)
 - Whisper Large v3
-- devstral-2-123b-instruct-2512
+- deepseek-v4-flash-0731
 - gemma-4-26b-a4b-it
+- glm-5.2
 - gpt-oss-120b
-- holo2-30b-a3b
 - mistral-medium-3.5-128b
 - mistral-small-3.2-24b-instruct-2506
 - qwen3-235b-a22b-instruct-2507
@@ -352,6 +346,5 @@ Extremely restrictive input/output token limits.
 - qwen3-embedding-8b
 - qwen3.5-397b-a17b
 - qwen3.6-35b-a3b
-- voxtral-small-24b-2507
 
 
